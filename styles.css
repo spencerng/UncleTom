@@ -85,7 +85,7 @@
 
 .android-wear-section {
   position: relative;
-  background: url('assets/landing-background.png') center top no-repeat;
+  background: url('assets/landing-background.jpg') center top no-repeat;
   background-size: cover;
   height: 800px;
 }
