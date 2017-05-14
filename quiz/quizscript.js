@@ -8,6 +8,7 @@ var nextButton = document.getElementById("nextButton");
 var buttons = document.getElementById("buttons");
 var gamePane = document.getElementById("gamePane");
 var utcTitle = "Uncle Tom's Cabin".italics();
+
 var op1 = document.getElementById("op1");
 var op2 = document.getElementById("op2");
 var op3 = document.getElementById("op3");
@@ -42,37 +43,37 @@ questions.push(
 		"The Fugitive Slave Act of 1850",
 		"Criticism of abolitionist newspapers",
 		"Nat Turner's rebellion",	2,
-		utcTitle + " was written in response to the stricter Fugitive Slave Act created in the Compromise of 1850.")	,new Question(
+		utcTitle + " was written in response to the stricter Fugitive Slave Act created in the Compromise of 1850."),
+	new Question(
 		"Who escapes to freedom in " + utcTitle +"?",
 		"Eliza",
 		"Uncle Tom",
 		"Eva St. Clare",
 		"Simon Legree",
 		1,
-		"Eliza and her family escape from the Shelby plantation to reach Canada, where they are free."),	new Question(
+		"Eliza and her family escape from the Shelby plantation to reach Canada, where they are free."),
+	new Question(
 		"Which of the following is " + "not".italics() + " used by Stowe to spread her message in " + utcTitle + "?",
 		"Religious imagery",
 		"Miss Ophelia's prejudice",
 		"Similarities and differences between slave owners",
 		"Caricatures of African Americans",
 		4,
-		"Caricatures and stereotypes of African Americans were not intended to be in the book, but were later spread through adaptations of the novel."),new Question(
+		"Caricatures and stereotypes of African Americans were not intended to be in the book, but were later spread through adaptations of the novel."),
+	new Question(
 		"What did many abolitionists criticize " + utcTitle +" for?",
 		"Lack of research on Southern life",
 		"Support of African colonization",
 		"Unrealistic characters and events",
 		"A message that was too forceful",
-		2, "Abolitionists felt that the book's message was not strong enough, while the other criticisms were from Southerners."
-
-
-		),
+		2, "Abolitionists felt that the book's message was not strong enough, while the other criticisms were from Southerners."),
 	new Question(
 		"Which event in the movement to abolish slavery used methods that were most similar to Stowe's?",
 		"Martyrdom of Nat Turner",
 		"William Lloyd Garrison's " + "The Liberator".italics(),
 		"Frederick Douglass' " + "North Star".italics(),
 		"Harriet Tubman and the Underground Railroad",
-		3, "While Garrison and Douglass both used writing to spread their ideas, Douglass' style was less controversial and had universal appeal, similar to " +utcTitle+". Thanks for playing!")
+		3, "While Garrison and Douglass both used writing to spread their ideas, Douglass' style was less controversial and had universal appeal, similar to " +utcTitle+". Thanks for taking the quiz!")
 );
 $(answerText).hide();
 //Variables
@@ -96,13 +97,16 @@ startButton.onclick=function(){
 function DisplayQuestion(Question, questionNumber){
 	$(answerText).fadeOut(function(){
 		
-	
 
-	$(submitButton).fadeIn(800);
+			$(submitButton).fadeIn(800);
 	});
+	
 	$(nextButton).fadeOut();
 
-	$(correctIcon).fadeOut();
+	$(correctIcon).fadeOut(function(){
+
+		$(buttons).fadeIn(800);
+	});
 
 	$(incorrectIcon).fadeOut(function(){
 		$(buttons).fadeIn(800);
@@ -112,22 +116,28 @@ function DisplayQuestion(Question, questionNumber){
 
 	$(question).fadeOut(function(){
 		$(this).html(Question.question).fadeIn();
+		
 	});
-	
+
+	var gameLabels = document.getElementsByClassName('mdl-js-radio')
+	for(var i = 0; i < 4; i++){
+		gameLabels[i].classList.remove("is-checked");
+    	gameLabels[i].onclick=function(){submitButton.removeAttribute("disabled");}
+
+	}
+
 	submitButton.setAttribute("disabled","disabled");
 	$(progress).fadeOut(function(){
 		$(this).html("Question " + questionNumber + " of 5").fadeIn();
 	});
+
+	
 	$("#op1").html(Question.optionOne);
 	$("#op2").html(Question.optionTwo);
 	$("#op3").html(Question.optionThree);
 	$("#op4").html(Question.optionFour);
 
-	op1.onclick=function(){submitButton.removeAttribute("disabled");};
-	op2.onclick=function(){submitButton.removeAttribute("disabled");};
-	op3.onclick=function(){submitButton.removeAttribute("disabled");};
-	op4.onclick=function(){submitButton.removeAttribute("disabled");};
-
+	
 	submitButton.onclick=function(){
 		
 		DisplayAnswer(questions[quesNum-1]);
